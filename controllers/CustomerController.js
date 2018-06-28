@@ -32,7 +32,7 @@ const createWithStaffmember = async function(req, res){
 
         [err, customer2] = await to(customer.save());
         if(err) return ReE(res, err, 422);
-        
+
         return ReS(res, {message:'Successfully created new Customer.',customer:customer2}, 201);
     }
 }
