@@ -24,9 +24,10 @@ router.delete(  '/users',           passport.authenticate('jwt', {session:false}
 router.post(    '/users/login',     UserController.login);
 
 
-router.post(    '/customer',      CustomerController.create);
-router.post(    '/customer/staffmember', passport.authenticate('jwt', {session:false}),     CustomerController.createWithStaffmember);
-router.get('/dash', passport.authenticate('jwt', {session:false}),HomeController.Dashboard)
+router.post(    '/jobseeker',      CustomerController.create);
+router.post(    '/jobseeker/staffmember', passport.authenticate('jwt', {session:false}),     CustomerController.createWithStaffmember);
+router.post(    '/listjobseeker/staffmember', passport.authenticate('jwt', {session:false}),     CustomerController.createListWithStaffmember);
+router.get('/dash', passport.authenticate('jwt', {session:false}),HomeController.Dashboard);
 
 
 module.exports = router;

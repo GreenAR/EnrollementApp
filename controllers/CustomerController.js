@@ -35,6 +35,28 @@ const createWithStaffmember = async function(req, res){
 
         return ReS(res, {message:'Successfully created new Customer.',customer:customer2}, 201);
     }
-}
+};
+const createListWithStaffmember = async function(req, res){
+    res.setHeader('Content-Type', 'application/json');
+    const body = req.body;
+    for (let i = 0; i < body.length; i++) {
+        if(!body[i].unique_key && !body[i].email){
+            return ReE(res, 'Please enter an email to register.');
+        } else{
+            let err, customer,customer2;
+            [err, customer] = await to(Customer.create(body[i]));
+            if(err) return ReE(res, err, 422);
+
+            customer.setStaffmember(req.user);
+
+            [err, customer2] = await to(customer.save());
+            if(err) return ReE(res, err, 422);
+
+            return ReS(res, {message:'Successfully created new Customer.',customer:customer2}, 201);
+        }
+    }
+
+};
 module.exports.createWithStaffmember = createWithStaffmember;
+module.exports.createListWithStaffmember = createListWithStaffmember;
 
